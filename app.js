@@ -22,9 +22,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// app.set('views', 'myviews');
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About' });
+});
+
+app.get('/blogs/create', (req, res) => {
+  res.render('create', { title: 'Create a new blog' });
+});
+
+// 404 page
+app.use((req, res) => {
+  res.status(404).render('404', { title: '404' });
 });
 
 // error handler
